@@ -1,6 +1,5 @@
 package models
 
-// Photo is a struct representing photo data.
 type Photo struct {
 	ID       string `gorm:"primaryKey;not null" valid:"required" json:"id"`
 	Title    string `gorm:"type:text;not null" json:"title"`

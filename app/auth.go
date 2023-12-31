@@ -1,6 +1,5 @@
 package app
 
-// AuthRegister adalah struktur data yang digunakan untuk mewakili data yang diperlukan saat melakukan registrasi pengguna.
 type AuthRegister struct {
 	Id       string `valid:"required" json:"id"`
 	Username string `valid:"required" json:"username"`

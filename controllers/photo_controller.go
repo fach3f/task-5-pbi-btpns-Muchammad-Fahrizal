@@ -10,7 +10,6 @@ import (
 	models "tugasakhir/models"
 )
 
-// Create_photo adalah fungsi untuk membuat foto baru.
 func CreatePhoto(c *gin.Context) {
 	var photo models.Photo
 	photo.ID = uuid.New().String()
@@ -33,7 +32,6 @@ func CreatePhoto(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Photo has been created successfully", "data": photo})
 }
 
-// Show_photo adalah fungsi untuk menampilkan daftar foto pengguna.
 func ShowPhoto(c *gin.Context) {
 	var photos []models.Photo
 	userid, _ := c.Get("userid")
@@ -42,7 +40,6 @@ func ShowPhoto(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "success", "data": photos})
 }
 
-// Update_photo adalah fungsi untuk memperbarui data foto.
 func UpdatePhoto(c *gin.Context) {
 	var photo models.Photo
 	photo.ID = c.Param("photoId")
@@ -57,22 +54,18 @@ func UpdatePhoto(c *gin.Context) {
 		return
 	}
 
-	// Melakukan operasi pembaruan
 	result := database.DB.Model(&photo).Where("userid = ?", photo.UserID).Updates(&photo)
 
-	// Memeriksa apakah pembaruan berhasil
 	if result.RowsAffected == 0 {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "Not found"})
 		return
 	}
 
-	// Mengambil data foto yang diperbarui dari database
 	database.DB.First(&photo, "id = ?", photo.ID)
 
 	c.JSON(http.StatusOK, gin.H{"message": "data has been updated", "data": photo})
 }
 
-// Delete_photo adalah fungsi untuk menghapus foto.
 func DeletePhoto(c *gin.Context) {
 	var photo models.Photo
 	photo.ID = c.Param("photoId")
